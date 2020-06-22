@@ -25,8 +25,13 @@ namespace IMS.TimeSheet
         private void WaitForLoading()
         {
             var wait = new WebDriverWait(_driver, new TimeSpan(0, 5, 0));
-            Thread.Sleep(500);
-            wait.Until(x => !IsElementPresent(By.Id("jquery-overlay")));
+            Thread.Sleep(1000);
+
+            while (IsElementPresent(By.Id("jquery-overlay")))
+            {
+                Thread.Sleep(500);
+            }
+            
         }
         private bool IsElementPresent(By by)
         {
@@ -163,7 +168,7 @@ namespace IMS.TimeSheet
                 WaitForLoading();
                 var log = details[i];
                 _driver.FindElement(By.Id("Descrip")).SendKeys("Support to team members");
-                _javaScriptExecutor.ExecuteScript($"$('#Nontfsdate').val('{log.Date.ToString("dd'/'MM'/'yyyy")}')");
+                _javaScriptExecutor.ExecuteScript($"$('#Nontfsdate').val('{log.Date.ToString("MM'/'dd'/'yyyy")}')");
                 _javaScriptExecutor.ExecuteScript("$('#hours').val('" +
                                                                     (log.LoggedHours > 9 ? log.LoggedHours.ToString() : "0" + log.LoggedHours.ToString()) +
                                                                     ":" +
@@ -182,6 +187,7 @@ namespace IMS.TimeSheet
                 _driver.FindElement(By.Id("Button1")).Click();
                 WaitForLoading();
             }
+            _driver.FindElement(By.Id("Timelog")).Click();
 
             return true;
         }
