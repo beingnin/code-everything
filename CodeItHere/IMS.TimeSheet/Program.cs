@@ -19,7 +19,7 @@ namespace IMS.TimeSheet
                 Console.WriteLine("\nDo you want to setup sprint? y/n");
                 if (Console.ReadKey().Key.ToString().ToUpper() == "Y")
                 {
-                    Console.WriteLine("\nEnter sprint name. example :- SP2020-EGT1-18 (case insensitive)");
+                    Console.WriteLine("\nEnter sprint name without number. example :- SP2020-EGT1 (case sensitive)");
                     sprint = Console.ReadLine();
                 }
                 Console.WriteLine("\nDo you want to log time for custom date range. If no, dates and time will be taken from your biometric inputs? y/n");

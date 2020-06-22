@@ -128,7 +128,7 @@ namespace IMS.TimeSheet
                     var tds = elements[i].FindElements(By.TagName("td"));
                     if (string.IsNullOrWhiteSpace(tds[0].Text) || string.IsNullOrWhiteSpace(tds[4].Text) || string.IsNullOrWhiteSpace(tds[5].Text))
                         continue;
-                    if (tds[5].Text != "0.0" || tds[4].Text == "00:00")
+                    if ((tds[5].Text != "0.0" && tds[5].Text != "00") || tds[4].Text == "00:00")
                         continue;
                     var total = tds[4].Text.Split(':');
                     var logged = tds[5].Text.Split('.');
@@ -158,7 +158,7 @@ namespace IMS.TimeSheet
 
             return result;
         }
-        private bool Log(IList<LogData> details, string sprint = "SP2020-EGT1")
+        private bool Log(IList<LogData> details, string sprintPrefix = "SP2020-EGT1")
         {
             
 
@@ -167,6 +167,8 @@ namespace IMS.TimeSheet
                 _driver.FindElement(By.Id("GenerlTask")).Click();
                 WaitForLoading();
                 var log = details[i];
+
+
                 _driver.FindElement(By.Id("Descrip")).SendKeys("Support to team members");
                 _javaScriptExecutor.ExecuteScript($"$('#Nontfsdate').val('{log.Date.ToString("MM'/'dd'/'yyyy")}')");
                 _javaScriptExecutor.ExecuteScript("$('#hours').val('" +
@@ -179,11 +181,15 @@ namespace IMS.TimeSheet
                 select.SelectByValue("SPSA");
                 WaitForLoading();
                 select = new SelectElement(_driver.FindElement(By.Id("subproject")));
-                select.SelectByValue(GetSprint(sprint));
+                var sprint = GetSprint(sprintPrefix);
+                select.SelectByValue(sprint);
                 WaitForLoading();
                 select = new SelectElement(_driver.FindElement(By.Id("activity")));
                 select.SelectByValue("Technical");
                 WaitForLoading();
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine($"Logging {log.LoggedHours} hours {log.LoggedMinutes} minutes for {log.Date.ToString("dd-MM-yyyy")} against {sprint} ");
+                Console.ResetColor();
                 _driver.FindElement(By.Id("Button1")).Click();
                 WaitForLoading();
             }
