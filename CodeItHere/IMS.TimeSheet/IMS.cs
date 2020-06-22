@@ -8,6 +8,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace IMS.TimeSheet
 {
@@ -24,6 +25,7 @@ namespace IMS.TimeSheet
         private void WaitForLoading()
         {
             var wait = new WebDriverWait(_driver, new TimeSpan(0, 5, 0));
+            Thread.Sleep(500);
             wait.Until(x => !IsElementPresent(By.Id("jquery-overlay")));
         }
         private bool IsElementPresent(By by)
