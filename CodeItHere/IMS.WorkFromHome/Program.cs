@@ -35,9 +35,18 @@ namespace IMS.WorkFromHome
                 userInput = Console.ReadLine();
             }
             range = userInput;
+            try
+            {
 
+                new IMS().RequestWFH(range);
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(ex.Message);
+                Console.ResetColor();
+            }
 
-            new IMS().RequestWFH(range);
 
             //exit
             Console.WriteLine("Press any key to exit");

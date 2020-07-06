@@ -47,7 +47,17 @@ namespace IMS.TimeSheet
             }
 
             //start logging time
-            new IMS().BookMyLog(sprint, range);
+            try
+            {
+
+                new IMS().BookMyLog(sprint, range);
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(ex.Message);
+                Console.ResetColor();
+            }
 
             //exit
             Console.WriteLine("Press any key to exit");

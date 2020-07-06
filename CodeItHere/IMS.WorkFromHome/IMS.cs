@@ -74,7 +74,7 @@ namespace IMS.WorkFromHome
             _driver.FindElement(By.Id("ctl00_PlaceHolderMain_txtReason")).SendKeys(reason);
 
             var dates = GetDates(range);
-            
+
             int updatedCount = 0;
             foreach (var date in dates)
             {
