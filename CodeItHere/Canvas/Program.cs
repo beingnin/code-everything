@@ -6,15 +6,35 @@ using System.Threading.Tasks;
 
 namespace Canvas
 {
+
+    public class BaseClass
+    {
+        public string Name { get; set; }
+        public BaseClass(string n)
+        {
+            this.Name = n;
+            Console.WriteLine(Name+ " Base called");
+        }
+    }
+    public class Derived:BaseClass
+    {
+        public Derived(string n):base(n)
+        {            
+            Console.WriteLine(base.Name);
+            Console.WriteLine(this.Name+" Child called");
+            Console.WriteLine(this.Name+" Child called");
+
+        }
+    }
     class Program
     {
         static unsafe void Main(string[] args)
         {
 
-
+            new Derived("Nithin");
             //Pointers();
             //FlaggedFeatureEnums();
-            FlaggedPermissionEnums();
+            //FlaggedPermissionEnums();
             Console.ReadKey();
         }
         static unsafe void Pointers()

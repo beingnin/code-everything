@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMS.WorkFromHome", "IMS.Wor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Canvas", "Canvas\Canvas.csproj", "{1D533E56-9B48-4578-A333-2FB44CEE900F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Canvas.Standard", "Canvas.Standard\Canvas.Standard.csproj", "{3DC5CC31-9CEB-43D5-837F-2DCC72D85390}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Canvas.Core", "Canvas.Core\Canvas.Core.csproj", "{2F98F070-FBA2-49BA-85DA-66FD7F64E316}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{1D533E56-9B48-4578-A333-2FB44CEE900F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D533E56-9B48-4578-A333-2FB44CEE900F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D533E56-9B48-4578-A333-2FB44CEE900F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DC5CC31-9CEB-43D5-837F-2DCC72D85390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DC5CC31-9CEB-43D5-837F-2DCC72D85390}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DC5CC31-9CEB-43D5-837F-2DCC72D85390}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DC5CC31-9CEB-43D5-837F-2DCC72D85390}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F98F070-FBA2-49BA-85DA-66FD7F64E316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F98F070-FBA2-49BA-85DA-66FD7F64E316}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F98F070-FBA2-49BA-85DA-66FD7F64E316}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F98F070-FBA2-49BA-85DA-66FD7F64E316}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
