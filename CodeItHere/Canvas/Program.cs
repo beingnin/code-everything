@@ -2,40 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Canvas
 {
-
-    public class BaseClass
+    public class DriverHelper
     {
-        public string Name { get; set; }
-        public BaseClass(string n)
-        {
-            this.Name = n;
-            Console.WriteLine(Name+ " Base called");
-        }
+        
     }
-    public class Derived:BaseClass
-    {
-        public Derived(string n):base(n)
-        {            
-            Console.WriteLine(base.Name);
-            Console.WriteLine(this.Name+" Child called");
-            Console.WriteLine(this.Name+" Child called");
 
-        }
-    }
     class Program
     {
         static unsafe void Main(string[] args)
         {
 
-            new Derived("Nithin");
+            Console.ReadKey();
             //Pointers();
             //FlaggedFeatureEnums();
             //FlaggedPermissionEnums();
-            Console.ReadKey();
         }
         static unsafe void Pointers()
         {
@@ -59,8 +44,6 @@ namespace Canvas
                 *p = (*p).AddDays(10);
                 Console.WriteLine($"memory address : { (int)p} and value is {*p}");
             }
-
-
         }
 
         #region Feature Flags
