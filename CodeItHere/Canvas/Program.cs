@@ -4,24 +4,57 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Canvas
 {
     public class DriverHelper
     {
-        
+
     }
 
     class Program
     {
         static unsafe void Main(string[] args)
         {
+            var mimeTypes = new Dictionary<string, string>()
+            {
+                { ".heic", "image/heic"},
+                {".extn", "custom/mime" }
+            };
+
+            RegisterMimeTypes(mimeTypes);
+
+
+            Console.WriteLine(MimeMapping.GetMimeMapping("filename.heic"));
 
             Console.ReadKey();
             //Pointers();
             //FlaggedFeatureEnums();
             //FlaggedPermissionEnums();
         }
+
+        public static void RegisterMimeTypes(IDictionary<string, string> mimeTypes)
+        {
+            if (mimeTypes == null || mimeTypes.Count == 0)
+                return;
+            var field = typeof(System.Web.MimeMapping).GetField("_mappingDictionary",
+                        System.Reflection.BindingFlags.NonPublic |
+                        System.Reflection.BindingFlags.Static);
+
+            var currentValues = field.GetValue(null);
+            var add = field.FieldType.GetMethod("AddMapping",
+                      System.Reflection.BindingFlags.NonPublic |
+                      System.Reflection.BindingFlags.Instance);
+
+            foreach (var mime in mimeTypes)
+            {
+                add.Invoke(currentValues, new object[] { mime.Key, mime.Value });
+            }
+
+        }
+
+
         static unsafe void Pointers()
         {
             DateTime[] arr = new DateTime[3]

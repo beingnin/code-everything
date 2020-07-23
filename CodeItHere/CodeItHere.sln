@@ -15,9 +15,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Canvas.Core", "Canvas.Core\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Canvas.GraphQL", "Canvas.GraphQL\Canvas.GraphQL.csproj", "{6C910852-09A5-4938-8B4E-E62DBDD49010}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Server", "Canvas.Blazor.Server\Blazor.Server.csproj", "{74963BE9-CA0A-4C2B-A79C-09A7E372E7B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Server", "Canvas.Blazor.Server\Blazor.Server.csproj", "{74963BE9-CA0A-4C2B-A79C-09A7E372E7B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.WebAssembly", "Blazor.WebAssembly\Blazor.WebAssembly.csproj", "{53DCBAC7-8CF9-4AD8-8B2B-298136114444}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.WebAssembly", "Blazor.WebAssembly\Blazor.WebAssembly.csproj", "{53DCBAC7-8CF9-4AD8-8B2B-298136114444}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ML.SentimentAnalyzer", "ML.SentimentAnalyzer\ML.SentimentAnalyzer.csproj", "{CFEFF40C-814C-4BF4-AAD6-148182566224}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ML.DetectFakeJobPosts", "ML.DetectFakeJobPosts\ML.DetectFakeJobPosts.csproj", "{9B6F4524-687A-4CB5-97D4-8814E7DC7C24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Canvas.Web", "Canvas.Web\Canvas.Web.csproj", "{1269AAE4-FEB4-4C78-A315-4C9F2D951E1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +63,18 @@ Global
 		{53DCBAC7-8CF9-4AD8-8B2B-298136114444}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53DCBAC7-8CF9-4AD8-8B2B-298136114444}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53DCBAC7-8CF9-4AD8-8B2B-298136114444}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFEFF40C-814C-4BF4-AAD6-148182566224}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFEFF40C-814C-4BF4-AAD6-148182566224}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFEFF40C-814C-4BF4-AAD6-148182566224}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFEFF40C-814C-4BF4-AAD6-148182566224}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B6F4524-687A-4CB5-97D4-8814E7DC7C24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B6F4524-687A-4CB5-97D4-8814E7DC7C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B6F4524-687A-4CB5-97D4-8814E7DC7C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B6F4524-687A-4CB5-97D4-8814E7DC7C24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1269AAE4-FEB4-4C78-A315-4C9F2D951E1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1269AAE4-FEB4-4C78-A315-4C9F2D951E1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1269AAE4-FEB4-4C78-A315-4C9F2D951E1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1269AAE4-FEB4-4C78-A315-4C9F2D951E1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
