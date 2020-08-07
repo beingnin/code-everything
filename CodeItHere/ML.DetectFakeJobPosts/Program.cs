@@ -26,11 +26,12 @@ namespace ML.DetectFakeJobPosts
         }
         public void Train()
         {
-            var path = new System.IO.DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName + @"\DataSets\fake_job_postings.csv";
+            var root = new System.IO.DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
+            var path = root + @"\DataSets\fake_job_postings.csv";
 
 
             var dataView = _context.Data.LoadFromTextFile<JobPostInput>(path: path, hasHeader: true, separatorChar: ',',allowQuoting:true);
-            var dataTable = dataView.ToDataTable<JobPostInput>();
+            var dataTable = dataView.ToDataTable();
             //string to data vectors
             var pipeline = _context.Transforms.Categorical.OneHotEncoding("ec_title", "title")
                 .Append(_context.Transforms.Categorical.OneHotEncoding("ec_location", "location"))
@@ -59,18 +60,13 @@ namespace ML.DetectFakeJobPosts
 
             var model = pipeline.Fit(dataView);
 
-
-
-
-
             var engine = _context.Model.CreatePredictionEngine<JobPostInput, FraudDetectionResult>(model);
-
-
+            _context.Model.Save(model,dataView.Schema, root + @"\DataSets\triained_model");
         }
     }
     public static class DataViewHelper
     {
-        public static DataTable ToDataTable<TInput>(this IDataView dataView)
+        public static DataTable ToDataTable(this IDataView dataView)
         {
             DataTable dt = null;
             if (dataView != null)

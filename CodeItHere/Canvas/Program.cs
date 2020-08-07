@@ -26,7 +26,7 @@ namespace Canvas
             RegisterMimeTypes(mimeTypes);
 
 
-            Console.WriteLine(MimeMapping.GetMimeMapping("filename.heic"));
+            Console.WriteLine(MimeMapping.GetMimeMapping("filename.HEIC"));
 
             Console.ReadKey();
             //Pointers();

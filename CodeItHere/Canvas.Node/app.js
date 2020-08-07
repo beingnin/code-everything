@@ -1,0 +1,1 @@
+const service=require("strapi-provider-upload-windows-network-drive-local");
