@@ -59,9 +59,7 @@ namespace Utilities.WhiteBoard
                 endpoints.MapRazorPages();
                 endpoints.MapHub<WhiteBoardHub>("/whiteboard");
             });
-            app.Run(async x => {
-                var y = x.Request.Body;                
-            });
+
         }
     }
 }

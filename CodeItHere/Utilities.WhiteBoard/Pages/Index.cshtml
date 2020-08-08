@@ -7,8 +7,9 @@
 
 
 <div id="canvasWrapper" style="height: calc(100vh - 140px)">
-    <canvas  id="canvas"> </canvas>
+    <canvas id="canvas"> </canvas>
 </div>
+@Html.Hidden("hdnBoard", Model.Board)
 @section Scripts{
 
     <script src="~/lib/JSketch.full.min.js"></script>
@@ -21,7 +22,11 @@
             .configureLogging(signalR.LogLevel.Error)
             .build();
 
-        connection.start().then(() => console.log('connected to RTC')).catch(er => console.error(er));
+        connection.start().then(() => {
+            console.log('connected to RTC');
+            connection.invoke('JoinGroup', '@Model.Board').then(() => { console.log('Joined to group : @Model.Board');})
+        }
+        ).catch(er => console.error(er));
 
 
 
@@ -40,26 +45,30 @@
         var recorder, stream, sourceBuffer, contents;
         var chunks = [];
         var id = 0, currentId = 0, waitTime = 0;
+        var showMovement = $('#btnShowMovement').data('movement') === 'true';
+
         var options = {
             events: {
                 mousedown: function (elem, data, evt) {
-                    SendData();
+                    //SendData();
                 },
                 mouseup: function (elem, data, evt) {
                     SendData();
                 },
                 mousemove: function (elem, data, evt) {
-                    SendData();
+                    showMovement && SendData();
                 }
             }
         };
 
         var sketcher = canvas.sketchable(options);
 
-        function SendData() {
+        function SendData(cmd='change') {
             contents = sketcher.sketchable('serializer.save');
 
-            connection.invoke('Add', { Id: id, Array: JSON.stringify(contents) })
+            //var content = JSON.stringify(contents);
+            var content = canvas[0].toDataURL();
+            connection.invoke('Change', { Id: id, Array: content, Board:"@Model.Board",Command:cmd })
                 .then(function () {
                     console.log('send', id);
                     id = id + 1;
@@ -70,12 +79,43 @@
         connection.on('change', function (data) {
             console.log('recieved', data.id);
             if (data.id > currentId || data.id == 0) {
-                sketcher.sketchable('serializer.load', JSON.parse(data.array));
-                currentId = data.id;
+                //sketcher.sketchable('serializer.load', JSON.parse(data.array));
+                if (data.command === 'clear')
+                {
+                    sketcher.sketchable('clear');
+                }
+                else
+                {
+                    var imageObj = new Image();
+                    imageObj.onload = function () {
+                        ctx.drawImage(this, 0, 0);
+                    };
+
+                    imageObj.src = data.array;
+                    currentId = data.id;
+                }
             }
         })
 
+        $('#btnClear').click(function () {
+            sketcher.sketchable('clear');
+            SendData('clear');
+        });
 
+        $('#btnShowMovement').click(function () {
+            if ($(this).data('movement') === 'true')
+            {
+                showMovement = false;
+                $(this).data('movement', 'false');
+                $(this).text('Show movements')
+            }
+            else
+            {
+                showMovement = true;
+                $(this).data('movement', 'true');
+                $(this).text('Do not show movements')
+            }
+        });
 
     </script>
 }
