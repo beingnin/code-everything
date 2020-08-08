@@ -1,0 +1,83 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+
+<div id="canvasWrapper" style="height: calc(100vh - 140px)">
+    <canvas  id="canvas"> </canvas>
+</div>
+@section Scripts{
+
+    <script src="~/lib/JSketch.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.3/signalr.min.js"></script>
+
+    <script>
+
+        var connection = new signalR.HubConnectionBuilder()
+            .withUrl("/whiteboard")
+            .configureLogging(signalR.LogLevel.Error)
+            .build();
+
+        connection.start().then(() => console.log('connected to RTC')).catch(er => console.error(er));
+
+
+
+
+
+    </script>
+
+    <script>
+        var canvas = $('#canvas');
+        let canvasWrapper = $('#canvasWrapper');
+        var ctx = canvas[0].getContext('2d');
+        ctx.canvas.width = canvasWrapper.width();
+        ctx.canvas.height = canvasWrapper.height();
+        var video = $('#video')[0];
+        var id = 0;
+        var recorder, stream, sourceBuffer, contents;
+        var chunks = [];
+        var id = 0, currentId = 0, waitTime = 0;
+        var options = {
+            events: {
+                mousedown: function (elem, data, evt) {
+                    SendData();
+                },
+                mouseup: function (elem, data, evt) {
+                    SendData();
+                },
+                mousemove: function (elem, data, evt) {
+                    SendData();
+                }
+            }
+        };
+
+        var sketcher = canvas.sketchable(options);
+
+        function SendData() {
+            contents = sketcher.sketchable('serializer.save');
+
+            connection.invoke('Add', { Id: id, Array: JSON.stringify(contents) })
+                .then(function () {
+                    console.log('send', id);
+                    id = id + 1;
+                })
+                .catch(err => console.error(err));
+        }
+
+        connection.on('change', function (data) {
+            console.log('recieved', data.id);
+            if (data.id > currentId || data.id == 0) {
+                sketcher.sketchable('serializer.load', JSON.parse(data.array));
+                currentId = data.id;
+            }
+        })
+
+
+
+    </script>
+}
+
+
