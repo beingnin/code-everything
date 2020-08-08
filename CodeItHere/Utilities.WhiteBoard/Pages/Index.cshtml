@@ -48,6 +48,10 @@
         var showMovement = $('#btnShowMovement').data('movement') === 'true';
 
         var options = {
+            graphics: {
+                lineWidth: 3,
+                strokeStyle: 'grey',
+            },
             events: {
                 mousedown: function (elem, data, evt) {
                     //SendData();
@@ -57,6 +61,18 @@
                 },
                 mousemove: function (elem, data, evt) {
                     showMovement && SendData();
+                },
+                mousedownBefore: function (elem, data, evt) {
+                    var brushType = $('#btnBrushType').data('brush');
+                    if (brushType == 'eraser') {
+                        // There is a method to set the brush in eraser mode.
+                        data.options.graphics.lineWidth = 20;
+                        data.sketch.eraser();
+                    } else if (brushType == 'pencil') {
+                        // There is a method to get the default mode (pencil) back.
+                        data.options.graphics.lineWidth = 3;
+                        data.sketch.pencil();
+                    }
                 }
             }
         };
@@ -115,6 +131,45 @@
                 $(this).data('movement', 'true');
                 $(this).text('Do not show movements')
             }
+        });
+
+        $('#btnBrushType').click(function () {
+            if ($(this).data('brush') === 'pencil') {
+                $(this).data('brush', 'eraser');
+                $(this).text('Pencil');
+            }
+            else {
+                $(this).data('brush', 'pencil');
+                $(this).text('Eraser')
+            }
+        })
+
+        $('#btnFullScreen').click(function () {
+
+            if (!document.fullscreenElement) {
+                document.body.requestFullscreen();
+                $(this).text('Exit fullscreen');
+            }
+            else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                    $(this).text('Fullscreen');
+                }
+            }
+        });
+
+        $(window).resize(function () {
+            var content = canvas[0].toDataURL();
+
+            ctx.canvas.width = canvasWrapper.width();
+            ctx.canvas.height = canvasWrapper.height();
+
+            var imageObj = new Image();
+            imageObj.onload = function () {
+                ctx.drawImage(this, 0, 0);
+            };
+
+            imageObj.src = content;
         });
 
     </script>
