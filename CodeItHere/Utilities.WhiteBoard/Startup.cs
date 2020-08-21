@@ -26,6 +26,7 @@ namespace Utilities.WhiteBoard
         {
             services.AddRazorPages();
             services.AddSignalR(x => {
+                Console.WriteLine("server is " + System.Diagnostics.Process.GetCurrentProcess().ProcessName);
                 x.MaximumReceiveMessageSize = long.MaxValue;
                 x.StreamBufferCapacity = int.MaxValue;
             }) ;

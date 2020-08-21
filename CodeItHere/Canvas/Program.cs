@@ -8,30 +8,28 @@ using System.Web;
 
 namespace Canvas
 {
-    public class DriverHelper
-    {
 
-    }
 
     class Program
     {
         static unsafe void Main(string[] args)
         {
-            var mimeTypes = new Dictionary<string, string>()
-            {
-                { ".heic", "image/heic"},
-                {".extn", "custom/mime" }
-            };
+            IMain<object> main = new Main<Sub1>();
+            IEnumerable<object> a = new List<Sub1>();
 
-            RegisterMimeTypes(mimeTypes);
-
-
-            Console.WriteLine(MimeMapping.GetMimeMapping("filename.HEIC"));
 
             Console.ReadKey();
             //Pointers();
             //FlaggedFeatureEnums();
             //FlaggedPermissionEnums();
+            //var mimeTypes = new Dictionary<string, string>()
+            //{
+            //    { ".heic", "image/heic"},
+            //    {".extn", "custom/mime" }
+            //};
+
+            //RegisterMimeTypes(mimeTypes);
+            //Console.WriteLine(MimeMapping.GetMimeMapping("filename.HEIC"));
         }
 
         public static void RegisterMimeTypes(IDictionary<string, string> mimeTypes)
@@ -79,80 +77,23 @@ namespace Canvas
             }
         }
 
-        #region Feature Flags
-        [Flags]
-        enum Feature
-        {
-            None = 0,
-            GeneralTasks = 1,
-            IdeationTasks = 2,
-            ImplementationTasks = 4,
-            Documents = 8,
-            Info = 16,
-            Discussions = 32,
-            LinkedLists = 64
-
-        }
-        static Feature features = Feature.None;
 
 
-        static void addFeature(Feature ftr)
-        {
-            features |= ftr;
-        }
-        static void removeFeature(Feature ftr)
-        {
-            features = features & ~ftr;
-        }
-        static void hasFeature(Feature ftr)
-        {
-            Console.WriteLine("Value is " + (int)features);
-            Console.WriteLine((features & ftr) == ftr ? ftr.ToString() + " Feature is present" : ftr.ToString() + " Feature not present");
-        }
-        static void RunFeatureActivities()
-        {
+    }
+    public interface IMain<out T>
+    {
 
-            addFeature(Feature.IdeationTasks);
-            addFeature(Feature.GeneralTasks);
-            addFeature(Feature.ImplementationTasks);
-            removeFeature(Feature.ImplementationTasks);
+    }
+    public class Main<T> : IMain<T>
+    {
+        public T Detail { get; set; }
+    }
+    public class Sub1
+    {
 
-            hasFeature(Feature.ImplementationTasks);
+    }
+    public class Sub2
+    {
 
-
-        }
-        #endregion
-        #region Permission Flag
-        [Flags]
-        enum Permission
-        {
-            None = 0,
-            View = 1,
-            Add = 2,
-            Edit = 4,
-            Delete = 8,
-            Approve = 16
-        }
-        static Permission permissions = Permission.None;
-        static void FlaggedPermissionEnums()
-        {
-            permissions |= Permission.Delete;
-            permissions |= Permission.Edit;
-            permissions = permissions & ~Permission.View;
-            hasPermission(Permission.Edit);
-            hasPermissionFromDb(Permission.Edit, 12);
-            void hasPermission(Permission pms)
-            {
-                Console.WriteLine("Value is " + (int)permissions);
-                Console.WriteLine((permissions & pms) == pms ? pms.ToString() + " Permission is present" : pms.ToString() + " Permission not present");
-            }
-            void hasPermissionFromDb(Permission pms, int dbValue)
-            {
-                Permission value = (Permission)dbValue;
-                Console.WriteLine((value & pms) == pms ? pms.ToString() + " Permission is present" : pms.ToString() + " Permission not present");
-            }
-        }
-
-        #endregion
     }
 }

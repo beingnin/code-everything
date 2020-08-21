@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +14,9 @@ namespace Utilities.WhiteBoard
     {
         public static void Main(string[] args)
         {
+            //new WebHostBuilder().UseKestrel().UseContentRoot(Directory.GetCurrentDirectory()).UseStartup<Startup>().Build().Run();
             CreateHostBuilder(args).Build().Run();
+            //Console.WriteLine("server is "+System.Diagnostics.Process.GetCurrentProcess().ProcessName);
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
