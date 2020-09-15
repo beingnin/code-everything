@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,24 +13,24 @@ namespace Canvas
 
     class Program
     {
-        static unsafe void Main(string[] args)
+        static void Main(string[] args)
         {
-            IMain<object> main = new Main<Sub1>();
-            IEnumerable<object> a = new List<Sub1>();
-
-
+            int num = 15017;
+            Console.WriteLine(EntryPoint(num));
             Console.ReadKey();
-            //Pointers();
-            //FlaggedFeatureEnums();
-            //FlaggedPermissionEnums();
-            //var mimeTypes = new Dictionary<string, string>()
-            //{
-            //    { ".heic", "image/heic"},
-            //    {".extn", "custom/mime" }
-            //};
 
-            //RegisterMimeTypes(mimeTypes);
-            //Console.WriteLine(MimeMapping.GetMimeMapping("filename.HEIC"));
+        }
+        static bool EntryPoint(int num)
+        {
+            return CheckDivisibilty(num, num/2);
+        }
+        static bool CheckDivisibilty(int num,int checkTill)
+        {
+            int checkingNum = 2;
+            if (checkingNum> checkTill) return true;
+            if (num % checkingNum == 0)
+                return false;
+            return CheckDivisibilty(num, ++checkingNum);
         }
 
         public static void RegisterMimeTypes(IDictionary<string, string> mimeTypes)
@@ -80,20 +81,6 @@ namespace Canvas
 
 
     }
-    public interface IMain<out T>
-    {
 
-    }
-    public class Main<T> : IMain<T>
-    {
-        public T Detail { get; set; }
-    }
-    public class Sub1
-    {
 
-    }
-    public class Sub2
-    {
-
-    }
 }
