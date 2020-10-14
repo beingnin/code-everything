@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ML.DetectFakeJobPosts", "ML
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Canvas.Web", "Canvas.Web\Canvas.Web.csproj", "{1269AAE4-FEB4-4C78-A315-4C9F2D951E1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities.WhiteBoard", "Utilities.WhiteBoard\Utilities.WhiteBoard.csproj", "{7C910F48-8113-4172-826A-790559376DD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities.WhiteBoard", "Utilities.WhiteBoard\Utilities.WhiteBoard.csproj", "{7C910F48-8113-4172-826A-790559376DD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interoperability", "Interoperability\Interoperability.csproj", "{AAF222B8-4C6B-4BC6-93AC-E5207736056F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{7C910F48-8113-4172-826A-790559376DD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C910F48-8113-4172-826A-790559376DD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C910F48-8113-4172-826A-790559376DD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAF222B8-4C6B-4BC6-93AC-E5207736056F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAF222B8-4C6B-4BC6-93AC-E5207736056F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAF222B8-4C6B-4BC6-93AC-E5207736056F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAF222B8-4C6B-4BC6-93AC-E5207736056F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
