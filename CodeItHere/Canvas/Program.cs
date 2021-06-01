@@ -13,7 +13,7 @@ using System.Web;
 
 namespace Canvas
 {
-    class Club  :IEnumerable<Person>
+    class Club : IEnumerable<Person>
     {
         public List<Person> Players { get; set; }
 
@@ -27,26 +27,37 @@ namespace Canvas
             return this.Players.GetEnumerator();
         }
     }
-    class Person
+    public class Person
     {
+        public Person(string name, int age)
+        {
+            this.Name = name;
+            Age = age;
+        }
         public string Name { get; set; }
+        public int Age { get; set; }
     }
 
     class Program
     {
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            var c = new Club() { Players=new List<Person>()};
-            foreach (var item in c)
+            try
+            {
+                var p = new Person("p:" + DateTime.Now.Ticks, 25);
+                await new MongoTransactionalRepo().RunTransaction(p);
+                Console.ReadKey();
+            }
+            catch (Exception ex)
             {
 
+                throw ex;
             }
-          
 
-              Console.ReadKey();
 
         }
+
 
 
         public static void RegisterMimeTypes(IDictionary<string, string> mimeTypes)

@@ -62,7 +62,7 @@ namespace IMS.TimeSheet
             {
                 details = GetLogDetailsFromRange(range);
             }
-            Log(details);
+            Log(details,sprint);
 
         }
         private IList<LogData> GetLogDetailsFromRange(string range, int hours = 8, int minutes = 0)
@@ -158,7 +158,7 @@ namespace IMS.TimeSheet
 
             return result;
         }
-        private bool Log(IList<LogData> details, string sprintPrefix = "SP2020-EGT1")
+        private bool Log(IList<LogData> details, string sprintPrefix = null)
         {
             
 
@@ -168,7 +168,7 @@ namespace IMS.TimeSheet
                 WaitForLoading();
                 var log = details[i];
 
-
+                
                 _driver.FindElement(By.Id("Descrip")).SendKeys("Support to team members");
                 _javaScriptExecutor.ExecuteScript($"$('#Nontfsdate').val('{log.Date.ToString("MM'/'dd'/'yyyy")}')");
                 _javaScriptExecutor.ExecuteScript("$('#hours').val('" +
@@ -199,6 +199,8 @@ namespace IMS.TimeSheet
         }
         private string GetSprint(string prefix)
         {
+            if (!string.IsNullOrWhiteSpace(prefix))
+                return prefix;
             var select = new SelectElement(_driver.FindElement(By.Id("subproject")));
             int large = 0;
             for (int i = 0; i < select.Options.Count; i++)

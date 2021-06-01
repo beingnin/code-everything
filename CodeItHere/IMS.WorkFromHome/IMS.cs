@@ -78,7 +78,14 @@ namespace IMS.WorkFromHome
             int updatedCount = 0;
             foreach (var date in dates)
             {
-                WaitTill(() => _driver.FindElements(By.CssSelector("#ctl00_PlaceHolderMain_gvLogDetails tbody tr")).Count == updatedCount + 1);
+                if (updatedCount > 10)
+                {
+                    Thread.Sleep(3000);
+                }
+                else
+                {
+                    WaitTill(() => _driver.FindElements(By.CssSelector("#ctl00_PlaceHolderMain_gvLogDetails tbody tr")).Count == updatedCount + 1);
+                }
                 _javaScriptExecutor.ExecuteScript("$('#ctl00_PlaceHolderMain_ddEntryHour').attr('onchange','')");
                 _javaScriptExecutor.ExecuteScript("$('#ctl00_PlaceHolderMain_ddEntrryMinute').attr('onchange','')");
                 _javaScriptExecutor.ExecuteScript("$('#ctl00_PlaceHolderMain_ddEntrySecond').attr('onchange','')");
