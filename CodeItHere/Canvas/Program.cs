@@ -46,24 +46,7 @@ namespace Canvas
         {
             try
             {
-                string path = @"C:\Users\nithin.bc\Desktop\demo.txt";
-
-                var stream = File.Create(path);
-
-                var security = stream.GetAccessControl();
-
-
-
-
-                Version v1 = "2.3.5";
-                Version v2 = "2.4.5";
-
-
-
-                if(v1==v2)
-                    Console.WriteLine($"{v1} is equal to {v2}");
-                else
-                    Console.WriteLine($"{v1} is not equal to{v2}");
+                Bira();
                 Console.ReadKey();
             }
             catch (Exception ex)
@@ -75,7 +58,64 @@ namespace Canvas
 
         }
 
+        public static void Bira()
+        {
+            //inputs
+            Console.WriteLine("Enter number of Bira cartons, number of people in the grp(separated by space)");
+            var split = Console.ReadLine().Split(' ');
+            int NoBiraCartons = Convert.ToInt32(split[0]);
+            int NoPeople = Convert.ToInt32(split[1]);
+            Console.WriteLine("Enter the weight of each bira carton(separated by space & should be more than 0)");
+            split = Console.ReadLine().Split(' ');
+            var cartonWeights = new int[NoBiraCartons];
+            for (int i = 0; i < NoBiraCartons; i++)
+            {
+                cartonWeights[i] = Convert.ToInt32(split[i]);
+            }
+            Console.WriteLine("Enter the weight of each person (separated by space & should be more than 0)");
+            split = Console.ReadLine().Split(' ');
+            var peopleWeight = new int[NoPeople];
+            for (int i = 0; i < NoPeople; i++)
+            {
+                peopleWeight[i] = Convert.ToInt32(split[i]);
+            }
 
+            //sorting
+
+            Array.Sort(cartonWeights);
+            Array.Sort(peopleWeight);
+            int pendingCartons = NoBiraCartons;
+            int minutesTaken = 0;
+
+            if (cartonWeights.Last() > peopleWeight.Last())//no one can lift it
+                return;
+
+            while (pendingCartons > 0)
+            {
+                var lot = 0;
+                //assign people with cartons according to their weights
+                for (int i = 0; i < NoPeople; i++)
+                {
+                    for (int j = 0; j < NoBiraCartons; j++)
+                    {
+                        if (peopleWeight[i] >= cartonWeights[j] && cartonWeights[j]!=0)
+                        {
+                            lot++;
+                            cartonWeights[j] = 0;
+                            break;
+                        }
+                    }                    
+                }
+                minutesTaken++;
+                pendingCartons = pendingCartons - lot;
+                if (pendingCartons > 0)
+                    minutesTaken++;// return time in case more cartons left
+            }
+
+            Console.WriteLine(minutesTaken);
+
+            Console.ReadKey();
+        }
 
         public static void RegisterMimeTypes(IDictionary<string, string> mimeTypes)
         {
@@ -215,7 +255,7 @@ namespace Canvas
         }
         public override bool Equals(object obj)
         {
-            return this==(Version)obj;
+            return this == (Version)obj;
         }
         public override int GetHashCode()
         {
@@ -226,8 +266,9 @@ namespace Canvas
                 hash = hash * 23 + this.Minor.GetHashCode();
                 hash = hash * 23 + this.Patch.GetHashCode();
                 return hash;
-            }       
+            }
         }
+
     }
 
 
