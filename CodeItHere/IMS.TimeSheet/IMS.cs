@@ -181,11 +181,14 @@ namespace IMS.TimeSheet
                 select.SelectByValue("SPSA");
                 WaitForLoading();
                 select = new SelectElement(_driver.FindElement(By.Id("subproject")));
-                var sprint = GetSprint(sprintPrefix);
+                //var sprint = GetSprint(sprintPrefix);
+                var sprint = GetSprint("Others");
                 select.SelectByValue(sprint);
                 WaitForLoading();
                 select = new SelectElement(_driver.FindElement(By.Id("activity")));
-                select.SelectByValue("Technical");
+                //select.SelectByValue("Technical");
+                select.SelectByValue("Support");
+
                 WaitForLoading();
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
                 Console.WriteLine($"Logging {log.LoggedHours} hours {log.LoggedMinutes} minutes for {log.Date.ToString("dd-MM-yyyy")} against {sprint} ");
