@@ -33,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Botsay.CLI", "Botsay.CLI\Bo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Canvas.WPF", "Canvas.WPF\Canvas.WPF.csproj", "{DB123B7D-C912-4AD4-9714-BFE1A32177FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRMS.Timesheet", "HRMS.Timesheet\HRMS.Timesheet.csproj", "{420796BA-5662-4A4F-A8DE-44F4FD6491EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRMS.Timesheet", "HRMS.Timesheet\HRMS.Timesheet.csproj", "{420796BA-5662-4A4F-A8DE-44F4FD6491EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithms", "Algorithms\Algorithms.csproj", "{E29D5848-34DF-4D67-9FB5-67BFF9021AB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +107,10 @@ Global
 		{420796BA-5662-4A4F-A8DE-44F4FD6491EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{420796BA-5662-4A4F-A8DE-44F4FD6491EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{420796BA-5662-4A4F-A8DE-44F4FD6491EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E29D5848-34DF-4D67-9FB5-67BFF9021AB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E29D5848-34DF-4D67-9FB5-67BFF9021AB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E29D5848-34DF-4D67-9FB5-67BFF9021AB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E29D5848-34DF-4D67-9FB5-67BFF9021AB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
