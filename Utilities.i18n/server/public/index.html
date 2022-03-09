@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internationalization project for Sharjah Police Department</title>
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <!-- bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!-- font -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300&display=swap"
+    rel="stylesheet">
+  <!-- custom -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- TOUR -->
+  <link rel="stylesheet" href="css/hopscotch.min.css" />
+  <!-- script  -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+  <!-- Nav Bar starts here- fixed-top -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="display-6 navbar-brand" href="#">
+        <img style="width: 18px;height: 18px;" src="img/favicon.ico" /> Internationalization project for Sharjah Police
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end">
+        <!-- Add new button -->
+        <a class="btn btn-sm btn-outline-info me-2" data-bs-toggle="modal" href="#addModalToggle" role="button">Add
+          phrase</a>
+
+        <!-- Download button starts here -->
+        <div class="dropdown">
+          <button type="button" class="btn btn-sm btn-secondary me-4 dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">Download for</button>
+          <ul id="js-download-list" class="dropdown-menu dropdown-menu-end" style="width:250px">
+            <!-- from template : tmpl-download-item -->
+          </ul>
+        </div>
+        <!-- Download button ends here -->
+        <a id="js-toggle-fullscreen" title="toggle fullscreen" class="btn btn-sm btn-outline-info me-2" href="#"
+          role="button"><i class="fal fa-expand-wide"></i></a>
+        <!-- <a id="js-toggle-quick-edit" title="toggle quick edit mode" class="btn btn-sm btn-outline-info me-2" href="#"
+          role="button"><i class="fas fa-fighter-jet"></i></a> -->
+        <!-- signin button -->
+        <a id="js-signin-btn" class="btn btn-sm btn-info" data-bs-toggle="modal" href="#loginModalToggle"
+          role="button">Sign
+          in</a>
+        <!-- Logout popover -->
+        <div id="js-profile-container" style="display: none;" class="dropdown login-user">
+          <a class="text-decoration-none dropdown-toggle text-white ms-3" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="fas fa-user"></i>
+            <span class="ps-2 email">name@domain.com</span>
+          </a>
+          <div onclick="event.stopPropagation();" class="dropdown-menu dropdown-menu-end login-user__wrapper"
+            aria-labelledby="dropdownMenuButton1">
+            <div class="login-user__content">
+              <p class="d-flex align-items-center m-0">
+                <i class="fas fa-envelope-open"></i>
+                <span class="ms-2 email">name@domain.com</span>
+              </p>
+              <p class="d-flex align-items-center m-0 ">
+                <i class="fas fa-user"></i>
+                <span class="ms-2 role">role</span>
+              </p>
+            </div>
+            <div class="login-user__button">
+              <div class="row">
+                <div class="col-sm-6">
+                  <button id="js-signout" type="button" class="btn btn-outline-primary w-100">Signout</button>
+                </div>
+                <div class="col-sm-6">
+                  <button id="js-start-tour" type="button" class="btn btn-outline-secondary w-100">Take Tour</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- Nav Bar ends here  -->
+
+  <div id="js-list-wrapper">
+    <!-- filter button row starts here -->
+    <div class="d-flex justify-content-between bg-light p-2 border-bottom">
+      <div id="js-header-container">
+        <!-- <h5 class="m-0 fw-bold">All phrases are listed below</h5> -->
+        <div style="z-index: 999999; display: none;" class="p-0 px-2 m-0 alert alert-danger" role="alert">...</div>
+      </div>
+
+      <div id="js-filter-container" class="d-flex">
+
+        <div class="dropdown">
+          <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="fal fa-filter"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end p-0" onclick="event.stopPropagation();"
+            aria-labelledby="btnGroupDrop1">
+            <div class="filter-menu">
+              <form>
+                <!-- <div> -->
+                <div class="mb-1">
+                  <label class="mb-1 fw-bold">Key</label>
+                  <input id="js-filter-key" placeholder="Type here" class="form-control" aria-describedby="">
+                </div>
+                <div class="mb-1">
+                  <label class="mb-1 fw-bold">English</label>
+                  <input id="js-filter-en" type="text" placeholder="Type here" class="form-control" aria-describedby="">
+                </div>
+                <div class="mb-1">
+                  <label class="mb-1 fw-bold">Arabic</label>
+                  <input id="js-filter-ar" type="text" placeholder="Type here" class="form-control" aria-describedby="">
+                </div>
+                <div class="mb-1">
+                  <label class="mb-1 fw-bold">Translated </label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="js-filter-translated-radio"
+                      id="js-filter-translated-both" value="all" checked>
+                    <label class="form-check-label" for="js-filter-translated-both">
+                      All
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="js-filter-translated-radio"
+                      id="js-filter-translated-only" value="translated">
+                    <label class="form-check-label" for="js-filter-translated-only">
+                      Translated only
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="js-filter-translated-radio"
+                      id="js-filter-translated-not" value="non-translated">
+                    <label class="form-check-label" for="js-filter-translated-not">
+                      Not yet translated
+                    </label>
+                  </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="mb-1">
+                  <label class="mb-1 fw-bold">Usage</label>
+                  <div id="js-filter-usage-container">
+                    <!-- from template:tmpl-filter-usage-item -->
+                  </div>
+
+                  <!-- </div> -->
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="mb-1">
+                  <button id='js-filter-suspect' type="button" class="btn btn-link text-start">Find all suspicious non
+                    arabics</button>
+                </div>
+                <div class="mb-1">
+                  <button id='js-filter-deleted' type="button" class="btn btn-link text-start">Find all deleted
+                    phrases</button>
+                </div>
+                <div class="d-flex justify-content-between my-2">
+                  <button id="js-filter-clear" type="button" class="btn btn-sm btn-outline-secondary">Clear</button>
+                  <button id="js-filter-apply" type="button" class="btn btn-sm bg-success">Apply</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- filter button row ends here -->
+
+    <!-- Page content Starts here -->
+    <div class="page-content p-2">
+      <div class="m-0 mb-2 row">
+        <div class="js-quick-edit-avoidable col-md-2 p-0 fw-bold">Key</div>
+        <div class="col-md-4 p-0 fw-bold js-quick-edit-keep">English</div>
+        <div class="col-md-4 p-0 fw-bold js-quick-edit-keep">Arabic</div>
+        <div class="js-quick-edit-avoidable col-md-2 p-0 fw-bold">Usage</div>
+      </div>
+      <div id="js-phrase-list" class="page-content__card">
+        <!-- from template: tmpl-phrase-item-* -->
+
+      </div>
+    </div>
+    <!-- Page content Ends here -->
+  </div>
+  <!-- Login Modal Starts here -->
+  <div class="modal fade" id="loginModalToggle" aria-hidden="true" aria-labelledby="loginModalToggleLabel"
+    tabindex="-1">
+    <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header d-block login-header">
+          <h3 class="modal-title">i18n</h3>
+          <h5 class="modal-title">Sign in to your account</h5>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <input type="email" autocomplete="email" placeholder="Username*" class="form-control" id="username"
+                aria-describedby="emailHelp" />
+            </div>
+            <div class="mb-3">
+              <input type="password" autocomplete="on" placeholder="Password*" class="form-control" id="password" />
+            </div>
+            <div class="mb-3">
+              <button id="js-login" type="button" class="btn bg-primary w-100">Sign In</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Login Modal Ends here -->
+
+  <!-- Add New Modal Starts here -->
+  <div class="modal fade" id="addModalToggle" aria-hidden="true" aria-labelledby="addModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <form class="modal-content">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title text-uppercase fw-bolder" id="addModalToggleLabel">Create a new phrase</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <div class="mb-3">
+              <input type="text" required placeholder="Key Name*" class="form-control" id="js-key-name"
+                aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <textarea class="form-control" required placeholder="Text in English *" id="js-text-english"
+                style="height: 100px"></textarea>
+            </div>
+            <div class="mb-3">
+              <textarea class="form-control" required placeholder="Text in Arabic *" id="js-text-arabic"
+                style="height: 100px"></textarea>
+            </div>
+            <div>
+              <label class="mb-2 fw-bold">Select Usage *</label>
+              <div class="d-flex" id="js-add-phrase-usage-container">
+
+                <!-- from template: tmpl-add-usage-item -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button id="js-new-phrase-review-clear" type="button" class="btn btn-outline-secondary"
+            onclick="$(this).closest('#addModalToggle').find('form')[0].reset()">Clear</button>
+          <button class="btn bg-primary" id="js-new-phrase-review" type="button" role="button">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Add New Modal Ends here -->
+
+  <!-- Confirmation Modal Starts here -->
+  <div class="modal fade" id="confirmationModalToggle" aria-hidden="true" aria-labelledby="confirmationModalToggleLabel"
+    tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title fw-bolder text-uppercase">Review</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label class="text-secondary">Key Name</label>
+              <p class="text-dark fw-bold" id="js-review-key">FileSubmitInfo</p>
+            </div>
+            <div class="mb-3">
+              <label class="text-secondary">Text in English</label>
+              <p class="text-dark fw-bold" id="js-review-text-english">Lorem Ipsum is simply dummy text of the printing
+                and
+                typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+              </p>
+            </div>
+            <div class="mb-3">
+              <label class="text-secondary">Text in Arabic</label>
+              <p class="text-dark fw-bold" id="js-review-text-arabic">Lorem Ipsum is simply dummy text of the printing
+                and
+                typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+              </p>
+            </div>
+            <div class="mb-3">
+              <label class="text-secondary">Usage</label>
+              <div class="d-flex" id="js-review-usage-container">
+                <!-- from template: tmpl-review-usage-item -->
+
+              </div>
+
+            </div>
+            <div id="js-review-phrase-similar-keys" class="mb-3 d-none">
+              <label class="mb-3 p-1 px-2 fs-7 alert alert-warning">The phrase you are trying to add has similarity with
+                already added ones.
+                Please review before continuing</label>
+              <div class="accordion" id="js-similar-phrase-list-container">
+                <!-- from template: tmpl-similar-phrase-item -->
+              </div>
+            </div>
+          </form>
+
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-outline-secondary" onclick="$('#js-new-phrase-review-clear').click()"
+            data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn bg-primary" id="js-new-phrase-save">Proceed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Confirmation Modal Ends here -->
+
+  <!-- history Modal Starts here -->
+  <div class="modal fade extralarge-modal" id="historyModalToggle" aria-hidden="true"
+    aria-labelledby="historyModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title fw-bolder" id="historyModalToggleLabel">history : key</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="table-wrapper table-responsive">
+            <table class="table">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">English</th>
+                  <th scope="col">Arabic</th>
+                  <th scope="col">Usage</th>
+                  <th scope="col">Actor</th>
+                  <th scope="col">Timestamp</th>
+                  <th scope="col">Operation</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- history Modal Ends here -->
+
+  <!-- all templates here -->
+  <div>
+    <template id='tmpl-download-item'>
+      <a target="_blank" class="dropdown-item d-flex justify-content-between align-items-center platform-menu">
+        <label class="ms-2 text-dark form-check-label js-name">platform name</label>
+        <i class="fas fa-download"></i>
+      </a>
+    </template>
+
+    <template id="tmpl-phrase-item-translated">
+      <div class="js-phrase-list-item app-lang-card app-lang-card--success">
+        <div class="row">
+          <div class="col-md-2 js-quick-edit-avoidable position-relative app-lang-card__item border-end">
+            <div class="position-absolute app-bg-icon me-2 "><i class="js-action-icon fa fa-check-circle"></i></div>
+            <span title="" class="js-key i18n-key"></span>
+          </div>
+          <div class="js-en js-quick-edit-keep col-md-4 app-lang-card__item border-end">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+            the industry's standard dummy text ever since the 1500s
+          </div>
+          <div class="js-ar js-quick-edit-keep col-md-4 app-lang-card__item border-end">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+            the industry's standard dummy text ever since the 1500s
+          </div>
+          <div class="js-quick-edit-avoidable col-md-1 app-lang-card__item">
+            <div class="d-flex align-items-center justify-content-center flex-fill">
+              <div class="js-platform-container btn-group" role="group" aria-label="Button group with nested dropdown">
+
+                <div class="btn-group" role="group">
+                  <button type="button" class="js-plus-more btn btn-sm btn-secondary dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    +0
+                  </button>
+                  <div class="js-platform-list dropdown-menu dropdown-menu-end" onclick="event.stopPropagation();"
+                    aria-labelledby="btnGroupDrop1">
+
+                    <!-- from template:tmpl-platform-ddl-item -->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-1 app-lang-card__item justify-content-center">
+            <a class="js-view-history btn btn-sm btn-default text-primary border-primary me-2" href="#" role="button"><i
+                class="far fa-clock"></i></a>
+
+            <a style="display: none;"
+              class="js-update-phrase btn btn-sm btn-info text-default border-primary me-1 text-uppercase btn-block"
+              role="button">Save</a>
+
+            <button type="button" class="btn btn-sm btn-light js-phrases-more-action text-secondary"
+              data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
+            <div class="dropdown-menu dropdown-menu-end">
+
+              <a class="js-phrase-edit dropdown-item" href="#"><i class="fal fa-edit"></i> <span>Edit</span></a>
+              <a class="js-phrase-delete dropdown-item text-danger" href="#"><i class="fal fa-trash"></i>
+                Delete</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </template>
+
+
+
+    <template id="tmpl-platform-ddl-item">
+      <div class="dropdown-item">
+        <div class="form-check">
+          <input class="form-check-input" disabled type="checkbox" value="" id="id">
+          <label class="js-platform text-dark form-check-label" for="id">
+            platform
+          </label>
+        </div>
+      </div>
+    </template>
+
+    <template id="tmpl-add-usage-item">
+      <div class="form-check me-3">
+        <input class="form-check-input js-add-usage-checkbox" type="checkbox" value="" id="">
+        <label class="form-check-label text-dark js-label" for="">
+          platform
+        </label>
+      </div>
+    </template>
+
+    <template id="tmpl-review-usage-item">
+      <div class="app-usage">
+        <div class="app-usage__icon ">
+          <i class="fal "></i>
+        </div>
+        <span class="mx-2 text-dark js-usage-name fw-bold">Mobile</span>
+      </div>
+    </template>
+
+    <template id="tmpl-filter-usage-item">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+        <label class="form-check-label" for="flexCheckDefault1">
+          PLatform
+        </label>
+      </div>
+    </template>
+    <template id="tmpl-shimmer">
+      <style>
+        .shine {
+          background: #f6f7f8;
+          background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+          background-repeat: no-repeat;
+          background-size: 800px 104px;
+          display: inline-block;
+          position: relative;
+
+          -webkit-animation-duration: 1s;
+          -webkit-animation-fill-mode: forwards;
+          -webkit-animation-iteration-count: infinite;
+          -webkit-animation-name: placeholderShimmer;
+          -webkit-animation-timing-function: linear;
+        }
+
+        box {
+          height: 104px;
+          width: 100%;
+        }
+
+        .div {
+          display: inline-flex;
+          flex-direction: column;
+          margin-left: 25px;
+          margin-top: 15px;
+          vertical-align: top;
+        }
+
+        lines {
+          height: 10px;
+          margin-top: 10px;
+          width: 200px;
+        }
+
+        photo {
+          display: block !important;
+          width: 100%;
+          height: 100px;
+          margin-top: 15px;
+        }
+
+        @-webkit-keyframes placeholderShimmer {
+          0% {
+            background-position: -468px 0;
+          }
+
+          100% {
+            background-position: 468px 0;
+          }
+        }
+      </style>
+      <box class="shine"></box>
+
+      <div class="div">
+        <lines class="shine"></lines>
+        <lines class="shine"></lines>
+        <lines class="shine"></lines>
+      </div>
+
+      <photo class="shine"></photo>
+      <photo class="shine"></photo>
+
+      <br>
+
+      <box class="shine"></box>
+
+      <div>
+        <lines class="shine"></lines>
+        <lines class="shine"></lines>
+        <lines class="shine"></lines>
+      </div>
+    </template>
+    <template id="tmpl-similar-phrase-item">
+      <div class="accordion-item">
+        <h2 class="accordion-header d-flex position-relative">
+          <button class="js-similar-phrase-key accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            key
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <div class="mb-3">
+              <label class="form-label text-secondary mb-0">Text in English</label>
+              <p class="text-dark fw-bold js-similar-phrase-english-text">Lorem Ipsum is simply dummy text of the
+                printing
+                and typesetting industry.
+              </p>
+            </div>
+            <div class="mb-3">
+              <label class="form-label text-secondary mb-0">Text in Arabic</label>
+              <p class="text-dark fw-bold js-similar-phrase-arabic-text">Lorem Ipsum is simply dummy text of the
+                printing
+                and typesetting industry.
+              </p>
+            </div>
+            <div class="mb-3">
+              <label class="form-label text-secondary mb-0">Used in</label>
+              <p class="text-dark fw-bold js-similar-phrase-used-in">
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/hopscotch.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
